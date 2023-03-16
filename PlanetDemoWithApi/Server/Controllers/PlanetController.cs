@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using PlanetDemoWithApi.Server.Repositories;
 using PlanetDemoWithApi.Shared;
+using Swashbuckle.AspNetCore.Filters;
+using System.Net;
 
 namespace PlanetDemoWithApi.Server.Controllers
 {
@@ -17,12 +19,48 @@ namespace PlanetDemoWithApi.Server.Controllers
             _planetRepository = planetRepository;
         }
 
+        
         [HttpGet]
+        [ProducesResponseType(typeof(Planet), 200)]
         public IEnumerable<Planet> Get()
         {
             List<Planet> planets = new List<Planet>();
             planets = _planetRepository.GetPlanets();
             return planets;
         }
+
+        [HttpGet("GetPlanetByName/{name}")]
+        [ProducesResponseType(typeof(Planet), 200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetPlanetByName(string name)
+        {
+            var planet = _planetRepository.GetPlanetByName(name);
+
+            if (planet == null) 
+            {
+                return NotFound();
+            }
+
+            return Ok(planet);
+        }
+
+        [HttpGet("GetDwarfPlanets")]
+        public Planet GetDwarfPlanets()
+        {
+            List<Planet> planets = new List<Planet>();
+            planets = _planetRepository.GetPlanets();
+            return planets.First();
+            //return planets;
+        }
+
+        [HttpGet("GetPlanetsExcludingDwarves")]
+        public Planet GetPlanetsExcludingDwarves()
+        {
+            List<Planet> planets = new List<Planet>();
+            planets = _planetRepository.GetPlanets();
+            return planets.First();
+            //return planets;
+        }
+
     }
 }
