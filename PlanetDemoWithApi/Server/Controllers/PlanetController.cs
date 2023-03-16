@@ -3,6 +3,7 @@ using PlanetDemoWithApi.Server.Repositories;
 using PlanetDemoWithApi.Shared;
 using Swashbuckle.AspNetCore.Filters;
 using System.Net;
+using System.Numerics;
 
 namespace PlanetDemoWithApi.Server.Controllers
 {
@@ -22,11 +23,11 @@ namespace PlanetDemoWithApi.Server.Controllers
         
         [HttpGet]
         [ProducesResponseType(typeof(Planet), 200)]
-        public IEnumerable<Planet> Get()
+        public IActionResult Get()
         {
             List<Planet> planets = new List<Planet>();
             planets = _planetRepository.GetPlanets();
-            return planets;
+            return Ok(planets);
         }
 
         [HttpGet("GetPlanetByName/{name}")]
@@ -44,23 +45,19 @@ namespace PlanetDemoWithApi.Server.Controllers
             return Ok(planet);
         }
 
-        [HttpGet("GetDwarfPlanets")]
-        public Planet GetDwarfPlanets()
+        [HttpGet("GetPlanetsFromProperty")]
+        public IActionResult GetPlanetsFromProperty(string? classification, int? numberOfMoons)
         {
-            List<Planet> planets = new List<Planet>();
-            planets = _planetRepository.GetPlanets();
-            return planets.First();
-            //return planets;
+            var planets = _planetRepository.GetPlanetsFromProperty(classification, numberOfMoons);
+
+            if (planets.Count == 0)
+            {
+                return NotFound("No planets were found in our Solar System searching using those properties");
+            }
+
+            return Ok(planets);
         }
 
-        [HttpGet("GetPlanetsExcludingDwarves")]
-        public Planet GetPlanetsExcludingDwarves()
-        {
-            List<Planet> planets = new List<Planet>();
-            planets = _planetRepository.GetPlanets();
-            return planets.First();
-            //return planets;
-        }
 
     }
 }
