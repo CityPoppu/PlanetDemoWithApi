@@ -38,7 +38,7 @@ namespace PlanetDemoWithApi.Server.Controllers
 
             if (planet == null) 
             {
-                return NotFound();
+                return NotFound("No planets were found in our Solar System by that name");
             }
 
             return Ok(planet);

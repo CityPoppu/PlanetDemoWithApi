@@ -1,14 +1,22 @@
 ﻿using MySql.Data.MySqlClient;
 using PlanetDemoWithApi.Shared;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 namespace PlanetDemoWithApi.Server.Repositories
 {
     public class PlanetRepository : IPlanetRepository
     {
+        private readonly IConfiguration _configuration;
+
+        public PlanetRepository(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         private MySqlConnection EstablishSqlConnection()
         {
-            string connectionString = "Server=aws-eu-west-2.connect.psdb.cloud;Database=planetdemodb;user=76gl80thw2v4qkftka1n;password=pscale_pw_35FocMjFUZhVCDwvYHWjVqBJZW4MR3s5SJxh0YYds5y;SslMode=VerifyFull;";
+            string connectionString = _configuration.GetConnectionString("ReadOnly");
             MySqlConnection sqlConnection = new MySqlConnection(connectionString);
 
             try
