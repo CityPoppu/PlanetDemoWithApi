@@ -1,5 +1,6 @@
 ﻿@page "/planetsearch"
 @using PlanetDemoWithApi.Shared
+@using System.Web;
 @inject HttpClient Http
 
 <PageTitle>Planet Search</PageTitle>
@@ -8,7 +9,16 @@
 
 <p>Search for a planet by name, or properties</p>
 
-<input placeholder="Enter Planet Name" @onchange="@PerformNameSearch"/>
+<input placeholder="Enter Planet Name" @bind-value="nameSearch"/>
+<button @onclick="PerformNameSearch">
+    Search for planet by Name
+</button>
+
+<input type="number" @bind-value="moonSearch" />
+<input @bind-value="classificationSearch" />
+<button @onclick="PerformPropertySearch">
+    Search for planet by Property
+</button>
 
 @if (planets == null || planets.Count == 0)
 {
@@ -88,8 +98,11 @@ else
 
 @code {
     private List<Planet> planets = new List<Planet>();
-    private string nameSearch;
-    private string responseText;
+    private string? responseText;
+
+    private string? nameSearch;
+    private string? classificationSearch;
+    private int? moonSearch;
 
     protected override async Task OnInitializedAsync()
     {
@@ -97,10 +110,12 @@ else
         StateHasChanged();
     }
 
-    private async Task PerformNameSearch(ChangeEventArgs args)
+    private async Task PerformNameSearch()
     {
         planets.Clear();
-        nameSearch = (string)args.Value;
+        classificationSearch = null;
+        moonSearch = null;
+
         var result = new Planet();
 
         if (!String.IsNullOrEmpty(nameSearch))
@@ -116,11 +131,40 @@ else
                 responseText = "Sorry, no Planets were found with that name!";
                 StateHasChanged();
             }
-
-
         }
         StateHasChanged();
     }
 
+
+    private async Task PerformPropertySearch()
+    {
+        planets.Clear();
+        nameSearch = null;
+        StateHasChanged();
+
+        try
+        {
+            if (!String.IsNullOrWhiteSpace(classificationSearch) && moonSearch != null)
+            {
+                planets = await Http.GetFromJsonAsync<List<Planet>>($"Planet/GetPlanetsFromProperty/?classification={HttpUtility.UrlEncode(classificationSearch)}&numberOfMoons={moonSearch}");
+            }
+            else if (!String.IsNullOrWhiteSpace(classificationSearch))
+            {
+                planets = await Http.GetFromJsonAsync<List<Planet>>($"Planet/GetPlanetsFromProperty/?classification={HttpUtility.UrlEncode(classificationSearch)}");
+            }
+            else if (moonSearch != null)
+            {
+                planets = await Http.GetFromJsonAsync<List<Planet>>($"Planet/GetPlanetsFromProperty/?numberOfMoons={moonSearch}");
+            }
+        }
+        
+        catch (HttpRequestException e)
+        {
+            responseText = "Sorry, no Planets were found with those properties!";
+            StateHasChanged();
+        }
+
+        StateHasChanged();
+    }
 
 }
