@@ -12,7 +12,7 @@ builder.Services.AddSingleton<IPlanetRepository, PlanetRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "My API", Version = "v1" });
+    c.SwaggerDoc("v1", new() { Title = "Planet API", Version = "v1" });
     var filePath = Path.Combine(AppContext.BaseDirectory, "PlanetDemoWithApi.Server.xml");
     c.IncludeXmlComments(filePath);
 });
