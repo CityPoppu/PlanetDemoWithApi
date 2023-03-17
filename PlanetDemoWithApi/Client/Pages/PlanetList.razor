@@ -90,6 +90,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         planets = await Http.GetFromJsonAsync<List<Planet>>("Planet");
+        planets = planets.OrderBy(p => p.DistanceFromSun).ToList();
     }
 
 }

@@ -23,8 +23,8 @@ namespace TestProject
         [TestMethod]
         public void TestAllPlanetsAreReturned()
         {
-            var config = InitConfiguration();
             // Arrange
+            var config = InitConfiguration();
             var testRepository = new PlanetRepository(config);
 
             //Act
@@ -37,8 +37,8 @@ namespace TestProject
         [TestMethod]
         public void TestJupiterIsReturnedFromName()
         {
-            var config = InitConfiguration();
             // Arrange
+            var config = InitConfiguration();
             var testRepository = new PlanetRepository(config);
 
             //Act
@@ -51,8 +51,8 @@ namespace TestProject
         [TestMethod]
         public void TestJupiterIsReturnedFromName_Lowecase()
         {
-            var config = InitConfiguration();
             // Arrange
+            var config = InitConfiguration();
             var testRepository = new PlanetRepository(config);
 
             //Act
@@ -65,8 +65,8 @@ namespace TestProject
         [TestMethod]
         public void TestOnlyDwarfPlanetsAreReturned()
         {
-            var config = InitConfiguration();
             // Arrange
+            var config = InitConfiguration();
             var testRepository = new PlanetRepository(config);
 
             //Act
@@ -80,8 +80,8 @@ namespace TestProject
         [TestMethod]
         public void TestOnlyDwarfPlanetsAreReturned_lowercase()
         {
-            var config = InitConfiguration();
             // Arrange
+            var config = InitConfiguration();
             var testRepository = new PlanetRepository(config);
 
             //Act
@@ -94,8 +94,8 @@ namespace TestProject
         [TestMethod]
         public void TestTwoPlanetsAreReturnedFromMoonCount()
         {
-            var config = InitConfiguration();
             // Arrange
+            var config = InitConfiguration();
             var testRepository = new PlanetRepository(config);
 
             //Act
@@ -110,8 +110,8 @@ namespace TestProject
         [TestMethod]
         public void TestSaturnOnlyIsReturnedFromMoonCount()
         {
-            var config = InitConfiguration();
             // Arrange
+            var config = InitConfiguration();
             var testRepository = new PlanetRepository(config);
 
             //Act
@@ -125,8 +125,8 @@ namespace TestProject
         [TestMethod]
         public void TestOnlyMarsIsReturnedFromMoonCountAndClassification()
         {
-            var config = InitConfiguration();
             // Arrange
+            var config = InitConfiguration();
             var testRepository = new PlanetRepository(config);
 
             //Act
@@ -135,6 +135,20 @@ namespace TestProject
             // Assert
             Assert.IsTrue(result.Count == 1);
             Assert.IsTrue(result.FirstOrDefault().Name == "Mars");
+        }
+
+        [TestMethod]
+        public void TestNothingReturnedFromIncorrectMoonCountAndClassification()
+        {
+            // Arrange
+            var config = InitConfiguration();
+            var testRepository = new PlanetRepository(config);
+
+            //Act
+            var result = testRepository.GetPlanetsFromProperty("Test Failure", 9999);
+
+            // Assert
+            Assert.IsTrue(result.Count == 0);
         }
 
     }

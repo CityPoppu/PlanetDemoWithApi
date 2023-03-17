@@ -69,7 +69,7 @@ namespace PlanetDemoWithApi.Server.Repositories
             
             sqlConnection.Close();
 
-            return queryResults.OrderBy(p => p.DistanceFromSun).ToList();
+            return queryResults;
         }
 
         public Planet GetPlanetByName(string name)
@@ -113,9 +113,12 @@ namespace PlanetDemoWithApi.Server.Repositories
 
         public List<Planet> GetPlanetsFromProperty(string? classification, int? numberOfMoons)
         {
+
+            var queryResults = new List<Planet>();
+
             if (classification == null && numberOfMoons == null)
             {
-                return new List<Planet>();
+                return queryResults;
             }
 
             var sql = _sqlForAllPlanets;
@@ -141,8 +144,6 @@ namespace PlanetDemoWithApi.Server.Repositories
 
             using MySqlDataReader rdr = sqlCommand.ExecuteReader();
 
-            var queryResults = new List<Planet>();
-
             while (rdr.Read())
             {
                 if (rdr.GetString(0) != null)
@@ -167,7 +168,7 @@ namespace PlanetDemoWithApi.Server.Repositories
 
             sqlConnection.Close();
 
-            return queryResults.OrderBy(p => p.DistanceFromSun).ToList();
+            return queryResults;
         }
     }
 }
