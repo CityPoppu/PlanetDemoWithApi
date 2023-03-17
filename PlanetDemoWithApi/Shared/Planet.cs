@@ -26,5 +26,20 @@ namespace PlanetDemoWithApi.Shared
         public int NumberOfMoons { get; set; }
         [Description("What the planet is named after")]
         public string Namesake { get; set; }
+
+        public Planet(string name, string imageUrl, decimal distanceFromSun, string actualMass, string earthMass, int diameter, int surfaceTemperature, string classification, int lengthOfYear, int numberOfMoons, string namesake)
+        {
+            Name = name;
+            ImageUrl = imageUrl;
+            DistanceFromSun = distanceFromSun;
+            ActualMass = actualMass;
+            EarthMass = earthMass;
+            Diameter = diameter;
+            SurfaceTemperature = surfaceTemperature;
+            Classification = classification;
+            LengthOfYear = lengthOfYear;
+            NumberOfMoons = numberOfMoons;
+            Namesake = namesake;
+        }
     }
 }
