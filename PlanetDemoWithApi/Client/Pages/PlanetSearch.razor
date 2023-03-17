@@ -9,16 +9,34 @@
 
 <p>Search for a planet by name, or properties</p>
 
-<input placeholder="Enter Planet Name" @bind-value="nameSearch"/>
-<button @onclick="PerformNameSearch">
-    Search for planet by Name
-</button>
+<div class="row">
+    <div class="col-md-2">
+        <input placeholder="Enter Planet Name" @bind-value="nameSearch"/>
+    </div>
+    <div class="col-md-10">
+        <button @onclick="PerformNameSearch">
+            Search for planet by Name
+        </button>
+    </div>
+</div>
 
-<input type="number" @bind-value="moonSearch" />
-<input @bind-value="classificationSearch" />
-<button @onclick="PerformPropertySearch">
-    Search for planet by Property
-</button>
+<div class="row">
+
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <input placeholder="Number of Moons" type="number" @bind-value="moonSearch" />
+    </div>
+    <div class="col-md-2">
+        <input placeholder="Planet Classification" @bind-value="classificationSearch" />
+    </div>
+    <div class="col-md-8">
+        <button @onclick="PerformPropertySearch">
+            Search for planet by Property
+        </button>
+    </div>
+</div>
 
 @if (planets == null || planets.Count == 0)
 {
@@ -134,7 +152,6 @@ else
         }
         StateHasChanged();
     }
-
 
     private async Task PerformPropertySearch()
     {
