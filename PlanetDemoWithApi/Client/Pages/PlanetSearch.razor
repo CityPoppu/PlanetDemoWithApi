@@ -1,0 +1,126 @@
+﻿@page "/planetsearch"
+@using PlanetDemoWithApi.Shared
+@inject HttpClient Http
+
+<PageTitle>Planet Search</PageTitle>
+
+<h1>Planets of the Solar System</h1>
+
+<p>Search for a planet by name, or properties</p>
+
+<input placeholder="Enter Planet Name" @onchange="@PerformNameSearch"/>
+
+@if (planets == null || planets.Count == 0)
+{
+    <p><em>@responseText</em></p>
+}
+else
+{
+    foreach(var planet in planets)
+    {
+        <div class="alert alert-secondary mt-4">
+            <Collapsable Title="@planet.Name" Collapsed="true" Value="">
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <img src="@planet.ImageUrl" asp-append-version="true" width="480" height="360"  />
+                </div>
+                <div class="col-md-6">
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Classification</th>
+                                        <th>Namesake</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@planet.Classification</td>
+                                        <td>@planet.Namesake</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Distance from Sun (au)</th>
+                                    <th>Mass (billion kg)</th>
+                                    <th>Mass (M⊕)</th>
+                                    <th>Average Temp. (C)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>@planet.DistanceFromSun</td>
+                                <td>@planet.ActualMass</td>
+                                <td>@planet.EarthMass</td>
+                                <td>@planet.SurfaceTemperature</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Equatorial Diameter (km)</th>
+                                        <th>Year Length (Earth Relative)</th>
+                                        <th>Number of Moons</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@planet.Diameter</td>
+                                        <td>@planet.LengthOfYear</td>
+                                        <td>@planet.NumberOfMoons</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+            </div>
+            </Collapsable>
+        </div>
+    }
+}
+
+@code {
+    private List<Planet> planets = new List<Planet>();
+    private string nameSearch;
+    private string responseText;
+
+    protected override async Task OnInitializedAsync()
+    {
+        responseText = "If any planets match the search criteria, they will appear below!";
+        StateHasChanged();
+    }
+
+    private async Task PerformNameSearch(ChangeEventArgs args)
+    {
+        planets.Clear();
+        nameSearch = (string)args.Value;
+        var result = new Planet();
+
+        if (!String.IsNullOrEmpty(nameSearch))
+        {
+            try
+            {
+                result = await Http.GetFromJsonAsync<Planet>($"Planet/GetPlanetByName/{nameSearch}");
+                planets.Add(result);
+            }
+
+            catch (HttpRequestException e)
+            {
+                responseText = "Sorry, no Planets were found with that name!";
+                StateHasChanged();
+            }
+
+
+        }
+        StateHasChanged();
+    }
+
+
+}
