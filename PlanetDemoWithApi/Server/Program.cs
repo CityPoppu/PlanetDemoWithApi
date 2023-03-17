@@ -9,7 +9,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 builder.Services.AddSingleton<IPlanetRepository, PlanetRepository>();
-builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "My API", Version = "v1" });
+    var filePath = Path.Combine(AppContext.BaseDirectory, "PlanetDemoWithApi.Server.xml");
+    c.IncludeXmlComments(filePath);
+});
 
 
 var app = builder.Build();
