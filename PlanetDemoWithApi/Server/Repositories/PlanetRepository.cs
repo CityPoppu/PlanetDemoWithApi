@@ -122,7 +122,7 @@ namespace PlanetDemoWithApi.Server.Repositories
 
             if (classification != null)
             {
-                sql = sql + $" WHERE Classification = '{classification}'";
+                sql = sql + $" WHERE UPPER(Classification) = UPPER('{classification}')";
 
                 if (numberOfMoons != null)
                 {
