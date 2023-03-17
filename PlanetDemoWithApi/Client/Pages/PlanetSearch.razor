@@ -11,10 +11,10 @@
 
 <div class="row">
     <div class="col-md-2">
-        <input placeholder="Enter Planet Name" @bind-value="nameSearch"/>
+        <input class="form-control" placeholder="Enter Planet Name" @bind-value="nameSearch" />
     </div>
     <div class="col-md-10">
-        <button @onclick="PerformNameSearch">
+        <button class="btn-success" @onclick="PerformNameSearch">
             Search for planet by Name
         </button>
     </div>
@@ -26,13 +26,19 @@
 
 <div class="row">
     <div class="col-md-2">
-        <input placeholder="Number of Moons" type="number" @bind-value="moonSearch" />
+        <input class="form-control" placeholder="Number of Moons" type="number" @bind-value="moonSearch" />
     </div>
     <div class="col-md-2">
-        <input placeholder="Planet Classification" @bind-value="classificationSearch" />
+        <select class="form-control" @bind="@classificationSearch">
+            <option value="">Select a classification...</option>
+            @foreach (var classification in classifications)
+            {
+                <option value="@classification"> @classification </option>
+            }
+        </select>
     </div>
     <div class="col-md-8">
-        <button @onclick="PerformPropertySearch">
+        <button class="btn-success" @onclick="PerformPropertySearch">
             Search for planet by Property
         </button>
     </div>
@@ -121,6 +127,8 @@ else
     private string? nameSearch;
     private string? classificationSearch;
     private int? moonSearch;
+
+    private List<string> classifications = new List<string> { "Dwarf Planet", "Gas Giant", "Ice Giant", "Terrestial Planet"};
 
     protected override async Task OnInitializedAsync()
     {
