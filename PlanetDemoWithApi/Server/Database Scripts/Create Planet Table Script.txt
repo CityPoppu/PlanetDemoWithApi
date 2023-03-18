@@ -1,0 +1,26 @@
+CREATE TABLE Planets (
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  imageURL varchar(255) NOT NULL, 
+  distanceFromSun decimal(5,2) NOT NULL, 
+  actualMass varchar(255) NOT NULL, 
+  earthMass decimal(5,2) NOT NULL, 
+  diameter int NOT NULL, 
+  surfaceTemperatureAverage int NOT NULL,
+  classification varchar(255) NOT NULL, 
+  lengthOfYear int NOT NULL,
+  numberOfMoons int NOT NULL, 
+  namesake varchar(255)
+);
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Earth','https://nineplanets.org/wp-content/uploads/2019/09/earth.png', 1.0, '5,972,190,000,000,000', 1, 12756, 14, 'Terrestial Planet', 365, 1, 'Varation of "The Ground" in many languages');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Mercury', 'https://nineplanets.org/wp-content/uploads/2019/09/mercury.png', 0.4, '330,104,000,000,000', 0.055, 4879, 167, 'Terrestial Planet', 88 , 0, 'Roman god of speed');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Jupiter', 'https://nineplanets.org/wp-content/uploads/2019/09/jupiter.png', 5.2, '1,898,130,000,000,000,000', 317.7, 142984, -110, 'Gas Giant', 4333, 92, 'King of the Roman gods');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Venus', 'https://nineplanets.org/wp-content/uploads/2019/09/venus.png', 0.7, '4,867,320,000,000,000', 0.815, 12104, 464, 'Terrestial Planet', 225, 0, 'Roman goddess of love');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Saturn', 'https://nineplanets.org/wp-content/uploads/2019/09/saturn.png', 9.5, '568,319,000,000,000,000', 95.2, 120536, -140, 'Gas Giant', 10759, 83, 'Father of Roman god Jupiter');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Uranus', 'https://nineplanets.org/wp-content/uploads/2019/09/uranus.png', 19.8, '86,810,300,000,000,000', 14.5, 51118, -195, 'Ice Giant',  30687, 27, 'Greek god of the sky');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Mars', 'https://nineplanets.org/wp-content/uploads/2019/09/mars.png', 1.5, '641,693,000,000,000', 0.107, 6805, -65, 'Terrestial Planet', 687, 2, 'Roman god of war');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Neptune', 'https://nineplanets.org/wp-content/uploads/2019/09/neptune.png', 30, '102,410,000,000,000,000', 17.1, 49528, -200, 'Ice Giant', 30687, 14, 'Roman god of the sea');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Pluto', 'https://nineplanets.org/wp-content/uploads/2019/09/pluto-1.png', 39, '13,090,000,000,000', 0.0022, 2368, -225, 'Dwarf Planet', 90560, 5, 'Roman god of the Underworld');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Haumea', 'https://nineplanets.org/wp-content/uploads/2019/09/haumea.png', 43, '4,006,000,000,000', 0.00016, 1960, -240, 'Dwarf Planet', 24033, 2, 'Hawaiian goddess of fertility');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Ceres', 'https://nineplanets.org/wp-content/uploads/2019/09/ceres.png', 2.8, '943,000,000,000', 0.00015, 950 , -38, 'Dwarf Planet', 1681, 0, 'Roman goddess of corn and harvests');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Eris', 'https://nineplanets.org/wp-content/uploads/2019/09/eris.png', 68, '16,700,000,000,000', 0.0028, 2326, 230, 'Dwarf Planet', 203305, 1, 'Greek goddess of discord and strife');
+
+INSERT INTO Planets (name, imageURL, distanceFromSun, actualMass, earthMass, diameter, surfaceTemperatureAverage, classification, lengthOfYear, numberOfMoons, namesake) VALUES ('Makemake', 'https://nineplanets.org/wp-content/uploads/2019/09/makemake.png', 45.8, '3,000,000,000,000', 0.00067, 1434, -230, 'Dwarf Planet', 111325, 1, 'Rapanui god of fertility');
+
