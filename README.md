@@ -4,7 +4,17 @@ Planet Demo is a Blazor Web Assembly application, created by Dean Brown. It uses
 
 # How to Run
 
-The Planet Demo can be run locally by downloading the solution from from PlanetDemoWithApi github repository. The project can be inspected & run from inside visual studio with .net 6.0 & above. Ensure that PlanetDemoWithApi.Server is set as a startup project. 
+The Planet Demo can be run locally by downloading the solution from from PlanetDemoWithApi github repository. The project can be inspected & run from inside visual studio with .net 6.0 & above. 
+
+Use the github CLI:
+
+```
+gh repo clone DeanB93/PlanetDemoWithApi
+```
+
+Via the https https://github.com/DeanB93/PlanetDemoWithApi.git / zip folder extraction
+
+Ensure that PlanetDemoWithApi.Server is set as a startup project. If this is the first time the web app is being run on a machine, SSL & localhost warnings may pop up - please agree to these to continue. 
 
 # Design
 
