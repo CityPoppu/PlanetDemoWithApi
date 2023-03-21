@@ -1,7 +1,10 @@
 ﻿@page "/planetsearch"
 @using PlanetDemoWithApi.Shared
+@using PlanetDemoWithApi.Client.Services;
 @using System.Web;
 @inject HttpClient Http
+@inject PlanetService PlanetService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Planet Search</PageTitle>
 
@@ -52,71 +55,7 @@ else
 {
     foreach(var planet in planets)
     {
-        <div class="alert alert-secondary mt-4">
-            <Collapsable Title="@planet.Name" Collapsed="true" Value="">
-            <div class="row col-md-12">
-                <div class="col-md-6">
-                    <img src="@planet.ImageUrl" asp-append-version="true" width="480" height="360"  />
-                </div>
-                <div class="col-md-6">
-                        <div class="row">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Classification</th>
-                                        <th>Namesake</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>@planet.Classification</td>
-                                        <td>@planet.Namesake</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    <div class="row">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Distance from Sun (au)</th>
-                                    <th>Mass (billion kg)</th>
-                                    <th>Mass (M⊕)</th>
-                                    <th>Average Temp. (C)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>@planet.DistanceFromSun</td>
-                                <td>@planet.ActualMass</td>
-                                <td>@planet.EarthMass</td>
-                                <td>@planet.SurfaceTemperature</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                        <div class="row">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Equatorial Diameter (km)</th>
-                                        <th>Year Length (Earth Relative)</th>
-                                        <th>Number of Moons</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>@planet.Diameter</td>
-                                        <td>@planet.LengthOfYear</td>
-                                        <td>@planet.NumberOfMoons</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                </div>
-            </div>
-            </Collapsable>
-        </div>
+        <PartialPlanet Planet="planet"/>
     }
 }
 
@@ -144,12 +83,12 @@ else
 
         var result = new Planet();
 
+
         if (!String.IsNullOrEmpty(nameSearch))
         {
             try
             {
-                result = await Http.GetFromJsonAsync<Planet>($"Planet/GetPlanetByName/{nameSearch}");
-                planets.Add(result);
+                result = await PlanetService.GetPlanetByNameAsync(new Uri(NavigationManager.BaseUri), nameSearch);
             }
 
             catch (HttpRequestException e)
@@ -169,18 +108,7 @@ else
 
         try
         {
-            if (!String.IsNullOrWhiteSpace(classificationSearch) && moonSearch != null)
-            {
-                planets = await Http.GetFromJsonAsync<List<Planet>>($"Planet/GetPlanetsFromProperty/?classification={HttpUtility.UrlEncode(classificationSearch)}&numberOfMoons={moonSearch}");
-            }
-            else if (!String.IsNullOrWhiteSpace(classificationSearch))
-            {
-                planets = await Http.GetFromJsonAsync<List<Planet>>($"Planet/GetPlanetsFromProperty/?classification={HttpUtility.UrlEncode(classificationSearch)}");
-            }
-            else if (moonSearch != null)
-            {
-                planets = await Http.GetFromJsonAsync<List<Planet>>($"Planet/GetPlanetsFromProperty/?numberOfMoons={moonSearch}");
-            }
+            var planets = await PlanetService.GetPlanetsByPropertyAsync(new Uri(NavigationManager.BaseUri), nameSearch, moonSearch);           
         }
         
         catch (HttpRequestException e)

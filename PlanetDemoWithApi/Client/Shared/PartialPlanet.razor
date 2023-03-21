@@ -1,0 +1,72 @@
+﻿@using PlanetDemoWithApi.Shared;
+
+<div class="alert alert-secondary mt-4">
+    <Collapsable Title="@Planet.Name" Collapsed="true" Value="">
+        <div class="row col-md-12">
+            <div class="col-md-6">
+                <img src="@Planet.ImageUrl" asp-append-version="true" width="480" height="360" />
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Classification</th>
+                                <th>Namesake</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Planet.Classification</td>
+                                <td>@Planet.Namesake</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Distance from Sun (au)</th>
+                                <th>Mass (billion kg)</th>
+                                <th>Mass (M⊕)</th>
+                                <th>Average Temp. (C)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Planet.DistanceFromSun</td>
+                                <td>@Planet.ActualMass</td>
+                                <td>@Planet.EarthMass</td>
+                                <td>@Planet.SurfaceTemperature</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Equatorial Diameter (km)</th>
+                                <th>Year Length (Earth Relative)</th>
+                                <th>Number of Moons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Planet.Diameter</td>
+                                <td>@Planet.LengthOfYear</td>
+                                <td>@Planet.NumberOfMoons</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </Collapsable>
+</div>
+
+
+@code {
+    [Parameter] public Planet Planet { get; set; }
+}

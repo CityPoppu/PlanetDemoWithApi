@@ -1,6 +1,4 @@
-﻿
-
-using PlanetDemoWithApi.Shared;
+﻿using PlanetDemoWithApi.Shared;
 
 namespace PlanetDemoWithApi.Server.Repositories
 {

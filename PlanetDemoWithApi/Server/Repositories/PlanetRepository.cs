@@ -2,6 +2,9 @@
 using PlanetDemoWithApi.Shared;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
+using Org.BouncyCastle.Asn1.Cms;
+using System.Reflection.PortableExecutable;
+using System.Data;
 
 namespace PlanetDemoWithApi.Server.Repositories
 {
@@ -15,6 +18,27 @@ namespace PlanetDemoWithApi.Server.Repositories
         public PlanetRepository(IConfiguration configuration)
         {
             _configuration = configuration;
+        }
+
+        private Planet GetPlanetRow(MySqlDataReader rdr)
+        {
+
+            var planet = new Planet
+            {
+                Name = (string)rdr.GetValue("name"),
+                ImageUrl = (string)rdr.GetValue("imageURL"),
+                DistanceFromSun = Convert.ToDouble((decimal)rdr.GetValue("distanceFromSun")),
+                ActualMass = (string)rdr.GetValue("actualMass"),
+                EarthMass = Convert.ToDouble((decimal)rdr.GetValue("earthMass")),
+                Diameter = (int)rdr.GetValue("diameter"),
+                SurfaceTemperature = (int)rdr.GetValue("surfaceTemperatureAverage"),
+                Classification = (string)rdr.GetValue("classification"),
+                LengthOfYear = (int)rdr.GetValue("lengthOfYear"),
+                NumberOfMoons = (int)rdr.GetValue("numberOfMoons"),
+                Namesake = (string)rdr.GetValue("namesake"),
+            };
+
+            return planet;
         }
 
         private MySqlConnection EstablishSqlConnection()
@@ -48,22 +72,10 @@ namespace PlanetDemoWithApi.Server.Repositories
             using var sqlCommand = new MySqlCommand(_sqlForAllPlanets, sqlConnection);
             
             using MySqlDataReader rdr = sqlCommand.ExecuteReader();
-            
+
             while (rdr.Read())
             {
-                var planet = new Planet { 
-                    Name = rdr.GetString(0), 
-                    ImageUrl = rdr.GetString(1),
-                    DistanceFromSun = rdr.GetDouble(2),
-                    ActualMass = rdr.GetString(3),
-                    EarthMass = rdr.GetDouble(4),
-                    Diameter = rdr.GetInt32(5),
-                    SurfaceTemperature = rdr.GetInt32(6),
-                    Classification = rdr.GetString(7),
-                    LengthOfYear = rdr.GetInt32(8),
-                    NumberOfMoons = rdr.GetInt32(9),
-                    Namesake = rdr.GetString(10)
-                };
+                var planet = GetPlanetRow(rdr);
                 queryResults.Add(planet);
             };
             
@@ -89,20 +101,7 @@ namespace PlanetDemoWithApi.Server.Repositories
             {
                 if (rdr.GetString(0) != null)
                 {
-                    planet = new Planet
-                    {
-                        Name = rdr.GetString(0),
-                        ImageUrl = rdr.GetString(1),
-                        DistanceFromSun = rdr.GetDouble(2),
-                        ActualMass = rdr.GetString(3),
-                        EarthMass = rdr.GetDouble(4),
-                        Diameter = rdr.GetInt32(5),
-                        SurfaceTemperature = rdr.GetInt32(6),
-                        Classification = rdr.GetString(7),
-                        LengthOfYear = rdr.GetInt32(8),
-                        NumberOfMoons = rdr.GetInt32(9),
-                        Namesake = rdr.GetString(10)
-                    };
+                    planet = GetPlanetRow(rdr);
                 }
             };
 
@@ -148,20 +147,7 @@ namespace PlanetDemoWithApi.Server.Repositories
             {
                 if (rdr.GetString(0) != null)
                 {
-                    var planet = new Planet
-                    {
-                        Name = rdr.GetString(0),
-                        ImageUrl = rdr.GetString(1),
-                        DistanceFromSun = rdr.GetDouble(2),
-                        ActualMass = rdr.GetString(3),
-                        EarthMass = rdr.GetDouble(4),
-                        Diameter = rdr.GetInt32(5),
-                        SurfaceTemperature = rdr.GetInt32(6),
-                        Classification = rdr.GetString(7),
-                        LengthOfYear = rdr.GetInt32(8),
-                        NumberOfMoons = rdr.GetInt32(9),
-                        Namesake = rdr.GetString(10)
-                    };
+                    var planet = GetPlanetRow(rdr);
                     queryResults.Add(planet);
                 }
             };
