@@ -89,6 +89,7 @@ else
             try
             {
                 result = await PlanetService.GetPlanetByNameAsync(new Uri(NavigationManager.BaseUri), nameSearch);
+                planets.Add(result);
             }
 
             catch (HttpRequestException e)
@@ -108,7 +109,7 @@ else
 
         try
         {
-            var planets = await PlanetService.GetPlanetsByPropertyAsync(new Uri(NavigationManager.BaseUri), nameSearch, moonSearch);           
+            planets = await PlanetService.GetPlanetsByPropertyAsync(new Uri(NavigationManager.BaseUri), nameSearch, moonSearch);           
         }
         
         catch (HttpRequestException e)
